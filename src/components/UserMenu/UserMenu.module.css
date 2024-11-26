@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  margin-right: 20px;
+  color: white;
+}
+
+.button {
+  padding: 5px 10px;
+  background-color: #ff6b6b;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #ff3b3b;
+}
