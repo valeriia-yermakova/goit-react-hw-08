@@ -5,7 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useState } from "react";
 
 import css from "./Contact.module.css";
-import Modal from "../modal/Modal";
+import Modal from "../Modal/Modal";
 
 const Contact = ({ id, name, number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
