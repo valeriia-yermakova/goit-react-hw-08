@@ -1,6 +1,3 @@
-export const selectVisibleContacts = (state) => {
-    const filter = state.contacts.filter.toLowerCase();
-    return state.contacts.items.filter((contact) =>
-      contact.name.toLowerCase().includes(filter)
-    );
-  };
+export const selectContacts = (state) => state.contactsList.contacts.items;
+export const selectLoading = (state) => state.contactsList.contacts.loading;
+export const selectError = (state) => state.contactsList.contacts.error;

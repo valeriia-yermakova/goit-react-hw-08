@@ -1,8 +1,18 @@
-.container {
-  margin: 20px;
+.mainTitle {
+  margin-top: 20px;
+  margin-bottom: 0;
+  font-size: 30px;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
+}
+
+.errorText {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  color: red;
 }

@@ -1,30 +1,39 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { deleteContact } from '../../redux/contacts/operations';
-import { selectVisibleContacts } from '../../redux/contacts/selectors';
-import styles from './ContactList.module.css';
+import { useSelector } from "react-redux";
+import {
+  selectFilter,
+  selectFilteredContacts,
+} from "../../redux/filters/selectors";
 
-const ContactList = () => {
-  const contacts = useSelector(selectVisibleContacts);
-  const dispatch = useDispatch();
+import Contact from "../Contacts/Contact";
+import css from "./ContactList.module.css";
+import { selectLoading } from "../../redux/contacts/selectors";
+
+export const ContactList = () => {
+  const filteredList = useSelector(selectFilteredContacts);
+  const startFilter = useSelector(selectFilter);
+  const isLoading = useSelector(selectLoading);
 
   return (
-    <ul className={styles.list}>
-      {contacts.map(({ id, name, number }) => (
-        <li key={id} className={styles.item}>
-          <p>
-            {name}: {number}
-          </p>
-          <button
-            type="button"
-            className={styles.button}
-            onClick={() => dispatch(deleteContact(id))}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
+    <>
+      {!startFilter && filteredList.length === 0 && !isLoading && (
+        <p className={css.noContactsMess}>There are no contacts yet 😔</p>
+      )}
+      {startFilter && filteredList.length === 0 ? (
+        <p className={css.noContactsMess}>
+          There are no contacts according to your search...
+        </p>
+      ) : (
+        <ul className={css.contactList}>
+          {filteredList.map((item) => (
+            <Contact
+              key={item.id}
+              id={item.id}
+              name={item.name}
+              number={item.number}
+            />
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
-
-export default ContactList;

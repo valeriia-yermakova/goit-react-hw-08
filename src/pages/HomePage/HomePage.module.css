@@ -1,4 +1,11 @@
-.container {
+.mainCont {
+  display: flex;
   text-align: center;
-  margin-top: 50px;
+  align-items: center;
+  height: 80vh;
+}
+
+.homeText {
+  font-size: 20px;
+  font-weight: 500;
 }

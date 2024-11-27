@@ -1,48 +1,63 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from '../../redux/contacts/operations';
-import styles from './ContactForm.module.css';
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import css from "./ContactForm.module.css";
+
+import { useDispatch } from "react-redux";
+import { addContacts } from "../../redux/contacts/operations";
+import { validationContactsSchema } from "../../utils/schema";
+
+const initialValues = {
+  name: "",
+  number: "",
+};
 
 const ContactForm = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addContact({ name, number }));
-    setName('');
-    setNumber('');
+  const handleSubmit = (values, actions) => {
+    dispatch(addContacts(values));
+    actions.resetForm();
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-      <label className={styles.label}>
-        Name
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className={styles.input}
-          required
-        />
-      </label>
-      <label className={styles.label}>
-        Number
-        <input
-          type="tel"
-          name="number"
-          value={number}
-          onChange={(e) => setNumber(e.target.value)}
-          className={styles.input}
-          required
-        />
-      </label>
-      <button type="submit" className={styles.button}>
-        Add Contact
-      </button>
-    </form>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={validationContactsSchema}
+    >
+      <Form className={css.form}>
+        <label className={css.formLabel}>
+          Name
+          <Field
+            className={css.formField}
+            type="text"
+            name="name"
+            autoComplete="off"
+          />
+          <ErrorMessage
+            className={css.errorMessage}
+            name="name"
+            component="span"
+          />
+        </label>
+        <label className={css.formLabel}>
+          Number
+          <Field
+            className={css.formField}
+            type="text"
+            name="number"
+            autoComplete="off"
+          />
+          <ErrorMessage
+            className={css.errorMessage}
+            name="number"
+            component="span"
+          />
+        </label>
+        <button className={css.formBtn} type="submit">
+          Add contact
+        </button>
+      </Form>
+    </Formik>
   );
 };
 
